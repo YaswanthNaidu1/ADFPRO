@@ -1,0 +1,39 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "adf-course-YG"
+		},
+		"AzureSqlDatabase_password": {
+			"value": ""
+		},
+		"linkedserviceDL_accountKey": {
+			"value": ""
+		},
+		"AzureSqlDatabase_properties_typeProperties_server": {
+			"value": "sqlproserver.database.windows.net"
+		},
+		"AzureSqlDatabase_properties_typeProperties_database": {
+			"value": "sqlprodb"
+		},
+		"AzureSqlDatabase_properties_typeProperties_userName": {
+			"value": "yashsqldb"
+		},
+		"HttpServer1_properties_typeProperties_url": {
+			"value": "https://raw.githubusercontent.com"
+		},
+		"linkedserviceDL_properties_typeProperties_url": {
+			"value": "https://storageaccountyyash.dfs.core.windows.net/"
+		},
+		"manager trigger_properties_typeProperties_scope": {
+			"value": "/subscriptions/8971aad4-41ea-4a2c-9348-bd635bbd096b/resourceGroups/YG-ADFCourse/providers/Microsoft.Storage/storageAccounts/storageaccountyyash"
+		},
+		"scheduled_properties_SCHED_pipeline_parameters_schema": {
+			"value": "source"
+		},
+		"scheduled_properties_SCHED_pipeline_parameters_table": {
+			"value": "orders"
+		}
+	}
+}
