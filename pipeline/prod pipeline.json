@@ -1,0 +1,72 @@
+{
+	"name": "prod pipeline",
+	"properties": {
+		"activities": [
+			{
+				"name": "manager pipeline",
+				"type": "ExecutePipeline",
+				"dependsOn": [],
+				"policy": {
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "Managerpipeline",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			},
+			{
+				"name": "git pipeline",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "manager pipeline",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "gitcopy pipeline",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			},
+			{
+				"name": "selected pipline",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "git pipeline",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "seleceted files pipline",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			}
+		],
+		"annotations": [],
+		"lastPublishTime": "2026-05-10T16:19:22Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

@@ -1,0 +1,88 @@
+{
+	"name": "transform csv",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "Dtaflowsource",
+						"type": "DatasetReference"
+					},
+					"name": "sourcecsv"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "dataflowsink",
+						"type": "DatasetReference"
+					},
+					"name": "sink"
+				}
+			],
+			"transformations": [
+				{
+					"name": "selecttransfrmtion"
+				},
+				{
+					"name": "filter1"
+				},
+				{
+					"name": "splitdata"
+				},
+				{
+					"name": "derivedColumn"
+				},
+				{
+					"name": "aggregate1"
+				},
+				{
+					"name": "alterRows"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          transaction_id as short,",
+				"          transactional_date as timestamp,",
+				"          product_id as string,",
+				"          customer_id as short,",
+				"          payment as string,",
+				"          credit_card as long,",
+				"          loyalty_card as boolean,",
+				"          cost as double,",
+				"          quantity as short,",
+				"          price as double",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> sourcecsv",
+				"sourcecsv select(mapColumn(",
+				"          transaction_id,",
+				"          transactional_date,",
+				"          product_id,",
+				"          customer_id,",
+				"          payment,",
+				"          price",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> selecttransfrmtion",
+				"selecttransfrmtion filter(customer_id!=12) ~> filter1",
+				"filter1 split(payment=='visa',",
+				"     payment=='master',",
+				"     disjoint: false) ~> splitdata@(visa, master, amex)",
+				"splitdata@amex derive(payment = coalesce(payment,'N/A')) ~> derivedColumn",
+				"splitdata@visa aggregate(groupBy(customer_id),",
+				"     product_id = max(product_id)) ~> aggregate1",
+				"aggregate1 alterRow(insertIf(1==1)) ~> alterRows",
+				"alterRows sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     umask: 0022,",
+				"     preCommands: [],",
+				"     postCommands: [],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> sink"
+			]
+		}
+	}
+}
