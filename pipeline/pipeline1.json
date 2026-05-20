@@ -119,7 +119,8 @@
 					"dataset": {
 						"referenceName": "ds_params",
 						"type": "DatasetReference"
-					}
+					},
+					"firstRowOnly": false
 				}
 			}
 		],
