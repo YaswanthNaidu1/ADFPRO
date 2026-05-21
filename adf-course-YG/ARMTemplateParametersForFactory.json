@@ -11,6 +11,9 @@
 		"linkedserviceDL_accountKey": {
 			"value": ""
 		},
+		"ls_dev_accountKey": {
+			"value": ""
+		},
 		"AzureSqlDatabase_properties_typeProperties_server": {
 			"value": "sqlproserver.database.windows.net"
 		},
@@ -34,6 +37,9 @@
 		},
 		"scheduled_properties_SCHED_pipeline_parameters_table": {
 			"value": "orders"
+		},
+		"ls_dev_properties_typeProperties_url": {
+			"value": "https://storageyashdev.dfs.core.windows.net/"
 		}
 	}
 }
