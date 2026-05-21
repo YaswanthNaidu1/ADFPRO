@@ -1,0 +1,15 @@
+{
+	"name": "adfyashdev",
+	"properties": {
+		"trustModeClaimForMi": {
+			"value": "Enabled",
+			"editable": true
+		}
+	},
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "14ace48c-885f-473a-b80e-22b226705921",
+		"tenantId": "cb162396-7871-4922-aec6-d198f76f94a2"
+	}
+}
